@@ -1,8 +1,9 @@
 import React from 'react';
-import './App.css';
+
+import AddColorForm from './components/AddColorForm/AddColorForm';
 
 const App: React.FC = () => {
-  return <>Colors app</>
+  return <><AddColorForm></AddColorForm></>
 }
 
 export default App;
