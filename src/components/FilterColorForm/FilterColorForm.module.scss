@@ -1,0 +1,44 @@
+.filtersForm {
+  background-color: white;
+  width: 50%;
+  margin: 1rem;
+  border-radius: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+
+  .container {
+    display: flex;
+    align-items: center;
+    margin-bottom: 6px;
+    font-size: 16px;
+
+    label {
+      margin-left: 5px;
+      cursor: pointer;
+    }
+
+    input {
+      cursor: pointer;
+    }
+  }
+
+  button {
+    width: 30%;
+    margin-top: 10px;
+    background-color: rgb(125, 125, 206);
+    color: white;
+    font-weight: 700;
+    border: none;
+    height: 30px;
+    border-radius: 1rem;
+
+    &:hover {
+      background-color: blueviolet;
+      cursor: pointer;
+      box-shadow: 0px 0px 8px #888888;
+    }
+  }
+}

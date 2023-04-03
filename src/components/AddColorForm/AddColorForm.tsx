@@ -38,6 +38,9 @@ const AddColorForm: React.FC<AddColorFormProps> = ({ onAddColor }) => {
           type="text"
           value={color}
           onChange={handleChange}
+          maxLength={7}
+          placeholder="#FFFFFF"
+          required
         />
         <button type="submit">Add Color</button>
       </form>
