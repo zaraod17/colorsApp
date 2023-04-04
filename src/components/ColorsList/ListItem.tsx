@@ -1,18 +1,28 @@
 import classes from "./ColorList.module.scss";
-import { CSSProperties } from "react";
+import { CSSProperties, ReactNode } from "react";
 
 interface StyleProps extends CSSProperties {
-    '--color'?: string
+  "--color"?: string;
 }
 
-const ListItem: React.FC<{ hex: string }> = ({ hex }) => {
-  
-
+const ListItem: React.FC<{ hex: string; children: ReactNode }> = ({
+  hex,
+  children,
+}) => {
   return (
-    <li key={hex}>
-      <div className={classes.colorRect} style={{'--color': hex} as StyleProps} ></div>
-      <span>{hex.toUpperCase()}</span>
-    </li>
+    <>
+      <li key={hex}>
+        <div className={classes.boxWrapper}>
+          <div
+            className={classes.colorRect}
+            style={{ "--color": hex } as StyleProps}
+          ></div>
+
+          {children}
+        </div>
+        <span>{hex.toUpperCase()}</span>
+      </li>
+    </>
   );
 };
 

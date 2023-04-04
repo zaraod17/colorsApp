@@ -29,14 +29,6 @@ class FilterColorForm extends Component<
     };
   }
 
-//   componentDidUpdate(
-//     prevProps: Readonly<FilterColorFormProps>,
-//     prevState: Readonly<FilterColorState>,
-//     snapshot?: any
-//   ): void {
-//     console.log(this.state);
-//   }
-
   handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const target = event.target;
     const name = target.name;

@@ -3,7 +3,7 @@ import { ChangeEvent, FormEvent, useState } from "react";
 import classes from "./AddColorForm.module.scss";
 
 interface AddColorFormProps {
-  onAddColor: (color: string) => void;
+  onAddColor: (id: string, color: string) => void;
 }
 
 const AddColorForm: React.FC<AddColorFormProps> = ({ onAddColor }) => {
@@ -17,7 +17,7 @@ const AddColorForm: React.FC<AddColorFormProps> = ({ onAddColor }) => {
       alert("Please enter a valid HEX");
       return;
     }
-    onAddColor(color.toUpperCase());
+    onAddColor(color, color.toUpperCase());
     localStorage.setItem(color, color);
     setColor("");
   };

@@ -13,36 +13,44 @@ interface ColorFilters {
   saturation: boolean;
 }
 
+interface Color {
+  id: string;
+  hex: string;
+}
+
 const App: React.FC = () => {
-  const colors: { hex: string }[] = [
+  const colors: Color[] = [
     {
+      id: "1",
       hex: "#888888",
     },
     {
+      id: "2",
       hex: "#77F921",
     },
     {
+      id: "3",
       hex: "#21F9F7",
     },
     {
+      id: "4",
       hex: "#CD21F9",
     },
     {
+      id: "5",
       hex: "#F90C63",
     },
     {
+      id: "6",
       hex: "#611313",
     },
     {
+      id: "7",
       hex: "#FBAA17",
     },
   ];
-  const [storageColors, setStorageColors] = useState<Array<{ hex: string }>>(
-    []
-  );
-  const [filteredColors, setFilteredColors] = useState<Array<{ hex: string }>>(
-    []
-  );
+  const [storageColors, setStorageColors] = useState<Array<Color>>([]);
+  const [filteredColors, setFilteredColors] = useState<Array<Color>>([]);
   const [filters, setFilters] = useState<ColorFilters>({
     red: false,
     green: false,
@@ -51,11 +59,11 @@ const App: React.FC = () => {
   });
 
   useEffect(() => {
-    let values: { hex: string }[] = [];
+    let values: { id: string; hex: string }[] = [];
     for (let i = 0; i < localStorage.length; i++) {
       let key = localStorage.key(i);
       let value = localStorage.getItem(key!);
-      values.push({ hex: value! });
+      values.push({ id: value!, hex: value! });
     }
     setStorageColors(values);
   }, []);
@@ -86,7 +94,22 @@ const App: React.FC = () => {
       return true;
     });
 
-    setFilteredColors(filtered);
+    const sorted = filtered.sort((a, b) => {
+      const rgbA = hexToRgb(a.hex);
+      const rgbB = hexToRgb(b.hex);
+      if (rgbA.r !== rgbB.r) {
+        return rgbB.r - rgbA.r;
+      }
+      if (rgbA.g !== rgbB.g) {
+        return rgbB.g - rgbA.g;
+      }
+      if (rgbA.b !== rgbB.b) {
+        return rgbB.b - rgbA.b;
+      }
+      return 0;
+    });
+
+    setFilteredColors(sorted);
   }, [filters]);
 
   const handleFilters = (filters: ColorFilters): void => {
@@ -94,8 +117,14 @@ const App: React.FC = () => {
     console.log(filters);
   };
 
-  const handleAddColor = (color: string): void => {
-    setStorageColors([...storageColors, { hex: color }]);
+  const handleAddColor = (id: string, color: string): void => {
+    setStorageColors([...storageColors, { id: color, hex: color }]);
+  };
+
+  const removeColorHandler = (color: Color): void => {
+    localStorage.removeItem(color.id);
+    const filtered = filteredColors.filter((c) => c.id !== color.id);
+    setFilteredColors(filtered);
   };
 
   return (
@@ -104,7 +133,7 @@ const App: React.FC = () => {
         <AddColorForm onAddColor={handleAddColor}></AddColorForm>
         <FilterColorForm onFilterColors={handleFilters}></FilterColorForm>
       </div>
-      <ColorList colors={filteredColors} />
+      <ColorList onRemoveColor={removeColorHandler} colors={filteredColors} />
     </>
   );
 };
