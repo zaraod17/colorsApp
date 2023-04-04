@@ -40,10 +40,10 @@ class FilterColorForm extends Component<
   handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const target = event.target;
     const name = target.name;
-    const value = target.value;
+    const value = target.checked;
 
     this.setState({
-      [name]: !!value,
+      [name]: value,
     } as Pick<FilterColorState, keyof FilterColorState>);
   };
 

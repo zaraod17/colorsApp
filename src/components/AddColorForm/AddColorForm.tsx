@@ -13,11 +13,12 @@ const AddColorForm: React.FC<AddColorFormProps> = ({ onAddColor }) => {
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>): void => {
     event.preventDefault();
-    if (colorRegexPattern.test(color)) {
+    if (!colorRegexPattern.test(color)) {
       alert("Please enter a valid HEX");
       return;
     }
     onAddColor(color.toUpperCase());
+    localStorage.setItem(color, color);
     setColor("");
   };
 
