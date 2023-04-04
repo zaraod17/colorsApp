@@ -2,15 +2,15 @@ import React, { Component, ReactNode } from "react";
 
 import classes from "./FilterColorForm.module.scss";
 
-interface FilterColorFormProps {
-  onFilterColors: () => void;
-}
-
 interface ColorFilter {
   red: boolean;
   green: boolean;
   blue: boolean;
   saturation: boolean;
+}
+
+interface FilterColorFormProps {
+  onFilterColors: (filters: ColorFilter) => void;
 }
 
 interface FilterColorState extends ColorFilter {}
@@ -29,13 +29,13 @@ class FilterColorForm extends Component<
     };
   }
 
-  componentDidUpdate(
-    prevProps: Readonly<FilterColorFormProps>,
-    prevState: Readonly<FilterColorState>,
-    snapshot?: any
-  ): void {
-    console.log(this.state);
-  }
+//   componentDidUpdate(
+//     prevProps: Readonly<FilterColorFormProps>,
+//     prevState: Readonly<FilterColorState>,
+//     snapshot?: any
+//   ): void {
+//     console.log(this.state);
+//   }
 
   handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const target = event.target;
@@ -49,7 +49,7 @@ class FilterColorForm extends Component<
 
   handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    this.props.onFilterColors(); // this.props.onFilterColors(this.state)
+    this.props.onFilterColors(this.state); // this.props.onFilterColors(this.state)
   };
 
   render(): ReactNode {

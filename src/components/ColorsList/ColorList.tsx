@@ -10,7 +10,7 @@ const ColorList: React.FC<ColorListProps> = ({ colors }) => {
     <div className={classes.listWrapper}>
       <ul>
         {colors.map(({ hex }) => (
-          <ListItem hex={hex} />
+          <ListItem key={Math.random().toString()} hex={hex} />
         ))}
       </ul>
     </div>
